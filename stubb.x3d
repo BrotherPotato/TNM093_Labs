@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2013, 2017, Karljohan Lundin Palmerius
+
+This is a stubb for laborations on multi-modal display
+systems in the VR laboratory. It will disable the X3D
+navigation to allow for viewpoint calibration and tracking,
+and load libraries commonly used in the VR laboratory.
+
+-->
+<Group>
+  
+  <PythonScript url="urn:candy:python/CorrectViewpoint.py"/>
+  
+  <PythonScript url="urn:candy:python/AutoLoadSO.py"/>
+   
+  <PythonScript DEF="CR" url="./ColorRandomizer.py"/>
+
+  <PythonScript DEF="MFSF" url="urn:candy:python/MFtoSFBool.py"/>
+  
+  <!-- Put your code here -->
+
+      
+
+
+  <MatrixTransform
+      DEF="TR">
+  
+ 
+  <!-- 45 grader =   0.785398 -->
+  <!-- 90 grader =   1.570796 -->
+  <Transform rotation="0 1 1 0.785398" scale ="0.4 0.4 0.4"> <!-- scene rotation-->
+  
+    <Shape DEF="LEG">
+        <Appearance>
+        <Material DEF="MYMAT" diffuseColor="1 0 1"/>
+        <SmoothSurface DEF="SS" stiffness="0.4"/>
+        </Appearance>
+        <Box DEF="LEGB" size="0.1 0.3 0.1"/>
+    </Shape>
+
+<Transform translation="0.5 0 0">
+        <Shape USE="LEG"/>
+    </Transform>
+
+    <Transform translation="0.5 0 -0.5">
+        <Shape USE="LEG"/>
+    </Transform>
+
+    <Transform translation="0 0 -0.5">
+        <Shape USE="LEG"/>
+    </Transform>
+
+    <Transform translation="0.25 0.2 -0.25"> 
+      <Shape DEF="NOTLEG">
+        <Appearance>
+        <Material diffuseColor="1 0 1"/>
+        </Appearance>
+        <Box size="0.6 0.1 0.6"/>
+      </Shape>
+    </Transform>
+
+    <Transform rotation="0 0 1 1.570796" translation="0.5 0.5 -0.25"> 
+      <Shape USE="NOTLEG"/>
+    </Transform>
+
+  </Transform> <!-- scene rotation-->
+  </MatrixTransform>
+  
+  <IMPORT inlineDEF="H3D_EXPORTS" exportedDEF="HDEV" AS="HDEV"/>
+
+ <PythonScript
+      DEF="MT"
+      url="urn:candy:python/ManualTranslation.py">
+    <Transform USE="TR" containerField="references"/>
+  </PythonScript>
+
+
+ <PythonScript
+      DEF="MR"
+      url="urn:candy:python/ManualRotation.py">
+    <Transform USE="TR" containerField="references"/>
+  </PythonScript>
+
+
+
+ <ROUTE fromNode="HDEV" fromField="mainButton"
+         toNode="MT" toField="button"/>
+  <ROUTE fromNode="HDEV" fromField="trackerPosition"
+         toNode="MT" toField="position"/>
+
+
+  <ROUTE fromNode="HDEV" fromField="mainButton"
+         toNode="MR" toField="button"/>
+  <ROUTE fromNode="HDEV" fromField="trackerPosition"
+         toNode="MR" toField="position"/>
+  <ROUTE fromNode="HDEV" fromField="trackerOrientation"
+         toNode="MR" toField="orientation"/>
+
+
+  <ROUTE fromNode="LEGB" fromField="isTouched"
+          toNode="MFSF" toField="value"/>
+
+<ROUTE fromNode="MFSF" fromField="value"
+          toNode="CR" toField="color"/>
+
+<ROUTE fromNode="CR" fromField="color"
+          toNode="MYMAT" toField="diffuseColor"/>   
+
+
+</Group>
+
+
