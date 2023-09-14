@@ -17,12 +17,48 @@ and load libraries commonly used in the VR laboratory.
    
   <PythonScript DEF="CR" url="./ColorRandomizer.py"/>
 
+  <PythonScript DEF="CR2" url="./ColorRandomizer.py"/>
+
   <PythonScript DEF="MFSF" url="urn:candy:python/MFtoSFBool.py"/>
+
+  <PythonScript DEF="MFSF2" url="urn:candy:python/MFtoSFBool.py"/>
+
   
   <!-- Put your code here -->
+<!-- https://h3d.org/wp-content/uploads/2021/02/H3DAPI_2.4/doc/H3DAPI/html/index.html -->
 
-      
 
+  <SMViewpoint 
+    position = "0 0 0.6"
+    screenLowerLeft = "-0.2592 -0.162 0"
+    screenUpperRight = "0.2592 0.162 0"
+  />
+
+  <!-- <Viewpoint description='View 0'
+        centerOfRotation='0 0 0'
+        position='0 0 1'
+        orientation='1 0 0 0'
+        fieldOfView='.78'
+        jump='true'
+        retainUserOffsets='true'
+  />
+
+  <Viewpoint description='View 1'
+        centerOfRotation='0 0 0'
+        position='2 0 1'
+        orientation='0 1 0 .785398'
+        fieldOfView='.78'
+        jump='true'
+        retainUserOffsets='true'
+  />
+      <Viewpoint
+        description='View 2'
+        centerOfRotation='0 0 0'
+        position='0 0 0.6'
+        orientation='1 0 0 0'
+        fieldOfView='0.78'
+        jump='true'
+        retainUserOffsets='true' /> -->
 
   <MatrixTransform
       DEF="TR">
@@ -30,8 +66,9 @@ and load libraries commonly used in the VR laboratory.
  
   <!-- 45 grader =   0.785398 -->
   <!-- 90 grader =   1.570796 -->
-  <Transform rotation="0 1 1 0.785398" scale ="0.4 0.4 0.4"> <!-- scene rotation-->
+  <Transform rotation="0 1 1 0.785398" scale ="0.4 0.4 0.4" translation="0 0 -1"> <!-- scene rotation-->
   
+  <Group DEF="CHAIR">
     <Shape DEF="LEG">
         <Appearance>
         <Material DEF="MYMAT" diffuseColor="1 0 1"/>
@@ -55,15 +92,17 @@ and load libraries commonly used in the VR laboratory.
     <Transform translation="0.25 0.2 -0.25"> 
       <Shape DEF="NOTLEG">
         <Appearance>
-        <Material diffuseColor="1 0 1"/>
+        <SmoothSurface DEF="SS2" stiffness="0.4"/>
+        <Material DEF="MYMAT2" diffuseColor="1 0 1"/>
         </Appearance>
-        <Box size="0.6 0.1 0.6"/>
+        <Box DEF="NOTLEGC" size="0.6 0.1 0.6"/>
       </Shape>
     </Transform>
 
     <Transform rotation="0 0 1 1.570796" translation="0.5 0.5 -0.25"> 
       <Shape USE="NOTLEG"/>
     </Transform>
+    </Group> <!-- Chair-->
 
   </Transform> <!-- scene rotation-->
   </MatrixTransform>
@@ -102,11 +141,22 @@ and load libraries commonly used in the VR laboratory.
   <ROUTE fromNode="LEGB" fromField="isTouched"
           toNode="MFSF" toField="value"/>
 
-<ROUTE fromNode="MFSF" fromField="value"
+  <ROUTE fromNode="MFSF" fromField="value"
           toNode="CR" toField="color"/>
 
-<ROUTE fromNode="CR" fromField="color"
-          toNode="MYMAT" toField="diffuseColor"/>   
+  <ROUTE fromNode="CR" fromField="color"
+          toNode="MYMAT" toField="diffuseColor"/>
+
+
+  <ROUTE fromNode="NOTLEGC" fromField="isTouched"
+          toNode="MFSF2" toField="value"/>    
+
+  <ROUTE fromNode="MFSF2" fromField="value"
+          toNode="CR2" toField="color"/>
+
+  <ROUTE fromNode="CR2" fromField="color"
+          toNode="MYMAT2" toField="diffuseColor"/>   
+
 
 
 </Group>
