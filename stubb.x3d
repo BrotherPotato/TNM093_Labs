@@ -23,9 +23,27 @@ and load libraries commonly used in the VR laboratory.
 
   <PythonScript DEF="MFSF2" url="urn:candy:python/MFtoSFBool.py"/>
 
+  <PythonScript DEF="MFSF3" url="urn:candy:python/MFtoSFBool.py"/>
+
+  <PythonScript DEF="MFSF4" url="urn:candy:python/MFtoSFBool.py"/>
   
   <!-- Put your code here -->
 <!-- https://h3d.org/wp-content/uploads/2021/02/H3DAPI_2.4/doc/H3DAPI/html/index.html -->
+
+  <!-- Only works one at the time and only works in VRlab -->
+  <!-- <Inline url="urn:candy:x3d/view-untracked-stereo.x3d"/> -->
+  <!-- <Inline url="urn:candy:x3d/view-untracked-mono.x3d"/> -->
+  <!-- <Inline url="urn:candy:x3d/view-head-tracked-stereo.x3d"/> -->
+  <!-- <Inline url="urn:candy:x3d/view-head-tracked-mono.x3d"/> -->
+  <!-- end -->
+
+  <VRSound location="-1 0 0" spatialize="true">
+    <AudioClip DEF="SUND" url="./sound/ljud-bonk-5.wav" loop="false"/>
+  </VRSound>
+
+  <VRSound location="1 0 0" spatialize="true">
+    <AudioClip DEF="SUND2" url="./sound/ljud-bonk-2.wav" loop="false"/>
+  </VRSound>
 
 
   <SMViewpoint 
@@ -33,6 +51,11 @@ and load libraries commonly used in the VR laboratory.
     screenLowerLeft = "-0.2592 -0.162 0"
     screenUpperRight = "0.2592 0.162 0"
   />
+
+  <TimeTrigger DEF='TT' />
+  <TimeTrigger DEF='TT2' />
+  <BooleanFilter DEF='BF' />
+  <BooleanFilter DEF='BF2' />
 
   <!-- <Viewpoint description='View 0'
         centerOfRotation='0 0 0'
@@ -64,43 +87,94 @@ and load libraries commonly used in the VR laboratory.
       DEF="TR">
   
  
+
+  <PointLight location="2 1 3" global="true"/>
+
   <!-- 45 grader =   0.785398 -->
   <!-- 90 grader =   1.570796 -->
-  <Transform rotation="0 1 1 0.785398" scale ="0.4 0.4 0.4" translation="0 0 -1"> <!-- scene rotation-->
+  <Transform rotation="0 1 1 0" scale ="0.2 0.2 0.2" translation="0 0 0"> <!-- scene rotation-->
+
+<!-- Background -->
+<Transform translation="0 0 -1">
+    <Shape DEF="FLOOR">
+      <Appearance shadow="true">
+        <Material diffuseColor="1 1 0"/>
+        <SmoothSurface stiffness="0.4"/>
+        <ImageTexture url="./Wheezzer.jpg"/>
+      </Appearance>
+      <Box DEF="FLO" size="3 3 0.1"/>
+    </Shape>
+</Transform>
+
+<Transform translation="0 -0.5 -0.5" rotation="1 0 0 1.570796">
+    <Shape>
+      <Appearance shadow="true">
+        <Material diffuseColor="1 1 0"/>
+        <SmoothSurface stiffness="0.4"/>
+        <ImageTexture url="./Wheezzer.jpg"/>
+      </Appearance>
+      <Box DEF="FLOOR" size="3 3 0.1"/>
+    </Shape>
+</Transform>
+<!-- Background end -->
   
   <Group DEF="CHAIR">
     <Shape DEF="LEG">
-        <Appearance>
-        <Material DEF="MYMAT" diffuseColor="1 0 1"/>
-        <SmoothSurface DEF="SS" stiffness="0.4"/>
+        <Appearance shadow="true">
+          <Material DEF="MYMAT" diffuseColor="1 0 1"/>
+          <SmoothSurface DEF="SS" stiffness="0.4"/>
         </Appearance>
         <Box DEF="LEGB" size="0.1 0.3 0.1"/>
     </Shape>
 
 <Transform translation="0.5 0 0">
-        <Shape USE="LEG"/>
+       <Shape DEF="LEG">
+        <Appearance shadow="true">
+          <Material DEF="MYMAT" diffuseColor="1 0 1"/>
+          <SmoothSurface DEF="SS" stiffness="0.4"/>
+        </Appearance>
+        <Box DEF="LEGB" size="0.1 0.3 0.1"/>
+    </Shape>
     </Transform>
 
     <Transform translation="0.5 0 -0.5">
-        <Shape USE="LEG"/>
+        <Shape DEF="LEG">
+        <Appearance shadow="true">
+          <Material DEF="MYMAT" />
+          <SmoothSurface DEF="SS" stiffness="0.4"/>
+        </Appearance>
+        <Box DEF="LEGB" size="0.1 0.3 0.1"/>
+    </Shape>
     </Transform>
 
     <Transform translation="0 0 -0.5">
-        <Shape USE="LEG"/>
+        <Shape DEF="LEG">
+        <Appearance shadow="true">
+          <Material DEF="MYMAT" diffuseColor="1 1 1"/>
+          <SmoothSurface DEF="SS" stiffness="0.4"/>
+        </Appearance>
+        <Box DEF="LEGB" size="0.1 0.3 0.1"/>
+    </Shape>
     </Transform>
 
     <Transform translation="0.25 0.2 -0.25"> 
       <Shape DEF="NOTLEG">
-        <Appearance>
+        <Appearance shadow="true">
         <SmoothSurface DEF="SS2" stiffness="0.4"/>
-        <Material DEF="MYMAT2" diffuseColor="1 0 1"/>
+        <Material DEF="MYMAT2" diffuseColor="1 0.5 0.5"/>
         </Appearance>
         <Box DEF="NOTLEGC" size="0.6 0.1 0.6"/>
       </Shape>
     </Transform>
 
     <Transform rotation="0 0 1 1.570796" translation="0.5 0.5 -0.25"> 
-      <Shape USE="NOTLEG"/>
+      <Shape DEF="NOTLEG">
+        <Appearance shadow="true">
+        <SmoothSurface DEF="SS2" stiffness="0.4"/>
+        <Material DEF="MYMAT2" diffuseColor="1 0 0"/>
+        </Appearance>
+        <Box DEF="NOTLEGC" size="0.6 0.1 0.6"/>
+      </Shape>
     </Transform>
     </Group> <!-- Chair-->
 
@@ -123,21 +197,21 @@ and load libraries commonly used in the VR laboratory.
   </PythonScript>
 
 
-
+<!-- Manual Transform position -->
  <ROUTE fromNode="HDEV" fromField="mainButton"
          toNode="MT" toField="button"/>
   <ROUTE fromNode="HDEV" fromField="trackerPosition"
          toNode="MT" toField="position"/>
-
-
+<!--  end of MT pos -->
+<!-- Manual Transform rotation -->
   <ROUTE fromNode="HDEV" fromField="mainButton"
          toNode="MR" toField="button"/>
   <ROUTE fromNode="HDEV" fromField="trackerPosition"
          toNode="MR" toField="position"/>
   <ROUTE fromNode="HDEV" fromField="trackerOrientation"
          toNode="MR" toField="orientation"/>
-
-
+<!-- end of MR -->
+<!-- random colours -->
   <ROUTE fromNode="LEGB" fromField="isTouched"
           toNode="MFSF" toField="value"/>
 
@@ -156,7 +230,33 @@ and load libraries commonly used in the VR laboratory.
 
   <ROUTE fromNode="CR2" fromField="color"
           toNode="MYMAT2" toField="diffuseColor"/>   
+<!-- end of random colours -->
+<!-- SOUNDING-->
+  <ROUTE fromNode="NOTLEGC" fromField="isTouched"
+          toNode="MFSF3" toField="value"/>    
 
+  <ROUTE fromNode="MFSF3" fromField="value"
+          toNode="BF" toField="set_boolean"/>
+
+  <ROUTE fromNode="BF" fromField="inputTrue"
+          toNode="TT" toField="set_boolean"/>   
+          
+   <ROUTE fromNode="TT" fromField="triggerTime"
+          toNode="SUND" toField="startTime"/>  
+
+
+   <ROUTE fromNode="LEGB" fromField="isTouched"
+          toNode="MFSF4" toField="value"/>    
+
+  <ROUTE fromNode="MFSF4" fromField="value"
+          toNode="BF2" toField="set_boolean"/>
+
+  <ROUTE fromNode="BF2" fromField="inputTrue"
+          toNode="TT2" toField="set_boolean"/>   
+          
+   <ROUTE fromNode="TT2" fromField="triggerTime"
+          toNode="SUND2" toField="startTime"/>         
+<!-- end of sounding session -->
 
 
 </Group>
