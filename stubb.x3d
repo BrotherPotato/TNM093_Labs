@@ -36,12 +36,19 @@ and load libraries commonly used in the VR laboratory.
   <!-- <Inline url="urn:candy:x3d/view-head-tracked-stereo.x3d"/> -->
   <!-- <Inline url="urn:candy:x3d/view-head-tracked-mono.x3d"/> -->
   <!-- end -->
+  <!-- visual feedback -->
+  <Inline url="urn:candy:x3d/model_FeedbackTip.x3d"/> 
+
 
   <VRSound location="-1 0 0" spatialize="true">
-    <AudioClip DEF="SUND" url="./sound/ljud-bonk-5.wav" loop="false"/>
+    <ReverbSoundEffect parametersPreset="CHAPEL"/>
+    <AudioClip DEF="SUND" url="./sound/ljud-bonk-3.wav" loop="false"/>
   </VRSound>
 
+  <!-- Very difficult to tell where the sound is coming from the further away it is -->
+
   <VRSound location="1 0 0" spatialize="true">
+    <ReverbSoundEffect parametersPreset="PSYCHOTIC"/>
     <AudioClip DEF="SUND2" url="./sound/ljud-bonk-2.wav" loop="false"/>
   </VRSound>
 
@@ -99,7 +106,8 @@ and load libraries commonly used in the VR laboratory.
     <Shape DEF="FLOOR">
       <Appearance shadow="true">
         <Material diffuseColor="1 1 0"/>
-        <SmoothSurface stiffness="0.4"/>
+        <!-- <SmoothSurface stiffness="0.4"/> -->
+        <FrictionalSurface useRelativeValues="false" stiffness="500" damping="3" staticFriction="2" dynamicFriction="1"/>
         <ImageTexture url="./Wheezzer.jpg"/>
       </Appearance>
       <Box DEF="FLO" size="3 3 0.1"/>
@@ -110,10 +118,11 @@ and load libraries commonly used in the VR laboratory.
     <Shape>
       <Appearance shadow="true">
         <Material diffuseColor="1 1 0"/>
-        <SmoothSurface stiffness="0.4"/>
+        <!-- <SmoothSurface stiffness="0.4"/> -->
+        <FrictionalSurface useRelativeValues="false" stiffness="500" damping="3" staticFriction="2" dynamicFriction="1"/>
         <ImageTexture url="./Wheezzer.jpg"/>
       </Appearance>
-      <Box DEF="FLOOR" size="3 3 0.1"/>
+      <Box DEF="FLOORR" size="3 3 0.1"/>
     </Shape>
 </Transform>
 <!-- Background end -->
@@ -122,7 +131,8 @@ and load libraries commonly used in the VR laboratory.
     <Shape DEF="LEG">
         <Appearance shadow="true">
           <Material DEF="MYMAT" diffuseColor="1 0 1"/>
-          <SmoothSurface DEF="SS" stiffness="0.4"/>
+          <!-- <SmoothSurface DEF="SS" stiffness="0.4"/> -->
+        <FrictionalSurface useRelativeValues="false" stiffness="150" damping="5" staticFriction="2" dynamicFriction="0"/>
         </Appearance>
         <Box DEF="LEGB" size="0.1 0.3 0.1"/>
     </Shape>
@@ -170,7 +180,8 @@ and load libraries commonly used in the VR laboratory.
     <Transform rotation="0 0 1 1.570796" translation="0.5 0.5 -0.25"> 
       <Shape DEF="NOTLEG">
         <Appearance shadow="true">
-        <SmoothSurface DEF="SS2" stiffness="0.4"/>
+        <!-- <SmoothSurface DEF="SS2" stiffness="0.4"/> -->
+        <FrictionalSurface useRelativeValues="false" stiffness="1500" damping="0" staticFriction="0" dynamicFriction="2"/>
         <Material DEF="MYMAT2" diffuseColor="1 0 0"/>
         </Appearance>
         <Box DEF="NOTLEGC" size="0.6 0.1 0.6"/>
