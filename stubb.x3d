@@ -31,10 +31,14 @@ and load libraries commonly used in the VR laboratory.
 <!-- https://h3d.org/wp-content/uploads/2021/02/H3DAPI_2.4/doc/H3DAPI/html/index.html -->
 
   <!-- Only works one at the time and only works in VRlab -->
-  <!-- <Inline url="urn:candy:x3d/view-untracked-stereo.x3d"/> -->
-  <!-- <Inline url="urn:candy:x3d/view-untracked-mono.x3d"/> -->
-  <!-- <Inline url="urn:candy:x3d/view-head-tracked-stereo.x3d"/> -->
-  <!-- <Inline url="urn:candy:x3d/view-head-tracked-mono.x3d"/> -->
+  <!-- <Inline url="urn:candy:x3d/view-untracked-stereo.x3d"/> --> <!-- Fungerar bara med glasögonen ty steroskopisk, schysst 3d effect-->
+  <!-- <Inline url="urn:candy:x3d/view-untracked-mono.x3d"/> --> <!-- Det fungerade utan glasögon dock inte lika cool 3d effekt -->
+  <!--<Inline url="urn:candy:x3d/view-head-tracked-stereo.x3d"/>-->  <!-- Yippie den perspektivet beror på var hjälmen är!!!! dock känndes det lite fel (eye strain?) känns annorlunda från untracked stereo när man kollar på ljusa delen -->
+  <!-- <Inline url="urn:candy:x3d/view-head-tracked-mono.x3d"/> -->  <!-- går att använda utan glasögon, inte lika bra 3d effekt, skulle vara trevligare med snabbare uppdatering på headsettracking-->
+  <!-- Motion parallax with headtracking on has better depth because you do not only rely on shadows. Non-headtracked will give depth through shadows.
+  <!-- Max: Gillar parallax mer än skuggor. Magnus: Gillar bäst parallax. 
+  
+  
   <!-- end -->
   <!-- visual feedback -->
   <Inline url="urn:candy:x3d/model_FeedbackTip.x3d"/> 
